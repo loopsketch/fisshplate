@@ -1,0 +1,318 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+
+
+
+
+
+
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+<meta http-equiv="Content-Language" content="ja" /> 
+<meta http-equiv="Content-Style-Type" content="text/css" /> 
+<title>Fisshplate - 独自タグの追加</title>
+<link rel="stylesheet" type="text/css" href="http://www.seasar.org/theme/main.css" media="screen,projection" />
+<link rel="stylesheet" type="text/css" href="http://www.seasar.org/theme/print.css" media="print" />
+<link href="./css/maven-base.css" type="text/css" rel="stylesheet" media="screen" />
+<link href="./css/maven-theme.css" type="text/css" rel="stylesheet" media="screen" />
+</head>
+
+<body>
+
+<div id="wrapper">
+
+<div id="header">
+
+<div class="line"><span class="hide">spacer</span></div>
+
+<div id="logo"><h1 id="h01" class="hide">The Seasar Foundation Project Site</h1><img src="http://www.seasar.org/images/seasar_logo_blue.gif" alt="The Seasar Foundation" width="390" height="180" /></div>
+
+<div id="tool">
+
+<h2><a href="http://search.seasar.org/">Site Search</a></h2>
+
+<form id="search" action="http://search.seasar.org/">
+<div>
+	<input id="search_phrase" type="text" name="phrase" size="20" />
+	<input type="hidden" name="perpage" value="30" />
+	<input type="hidden" name="enc" value="UTF-8" />
+	<input id="search_go" type="submit" value="Search" />
+</div>
+</form>
+
+<h2>Seasar Banner</h2>
+
+<p><a href="http://www.seasar.org/images/seasar_banner.gif"><img src="http://www.seasar.org/images/seasar_banner.gif" alt="Seasar Banner" title="Seasar Banner" width="146" height="33" /></a></p>
+
+</div>
+
+<div id="navi">
+<p><a href="../en/">English</a> | <a href="../ja/">Japanese</a></p>
+</div>
+
+</div><!-- header -->
+
+<div id="contents_left">
+           
+  
+
+  
+    
+  
+  
+                   <h2>About</h2>
+        <ul>
+              
+    <li class="none">
+              <a href="index.html">ホーム</a>
+        </li>
+              
+    <li class="none">
+              <a href="license.html">ライセンス</a>
+        </li>
+              
+    <li class="none">
+              <a href="downloads.html">ダウンロード</a>
+        </li>
+          </ul>
+          <h2>ドキュメント</h2>
+        <ul>
+              
+    <li class="none">
+              <a href="setup.html">セットアップ</a>
+        </li>
+              
+    <li class="none">
+              <a href="template.html">テンプレートの作り方</a>
+        </li>
+              
+    <li class="none">
+              <a href="process.html">ファイル出力の仕方</a>
+        </li>
+              
+    <li class="none">
+              <a href="preview.html">プレビュー機能</a>
+        </li>
+              
+    <li class="none">
+              <a href="syntax.html">文法ガイド</a>
+        </li>
+              
+    <li class="none">
+              <strong>独自タグの追加</strong>
+        </li>
+              
+    <li class="none">
+              <a href="s2fisshplate.html">S2との連携</a>
+        </li>
+          </ul>
+          <h2>Javadoc</h2>
+        <ul>
+              
+    <li class="none">
+              <a href="apidocs/fisshplate/index.html">Fisshplate</a>
+        </li>
+              
+    <li class="none">
+              <a href="apidocs/s2fisshplate/index.html">S2Fisshplate</a>
+        </li>
+          </ul>
+          <h2>プロジェクト文書</h2>
+        <ul>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+        <li class="collapsed">
+              <a href="project-info.html">プロジェクト情報</a>
+              </li>
+          </ul>
+                                       <a href="http://maven.apache.org/" title="Built by Maven" id="poweredBy" name="poweredBy">
+            <img alt="Built by Maven" src="./images/logos/maven-feather.png" />
+          </a>
+                       
+  
+
+  
+    
+  
+  
+  </div><!-- contents_left -->
+
+<div id="contents_center">
+
+<div id="article">
+<div class="section"><h2>独自タグの追加</h2>
+<p>Fisshplateでは、いくつかのタグを用意していますが、独自でタグを定義して追加する事が出来ます。</p>
+<p>タグには2種類あります。</p>
+<dl><dt><b>行に対するタグ</b></dt>
+<dd>行に対して指定するタグです。#foreach や #if などがそれにあたります。タグは1行につき1つしか指定出来ません。</dd>
+<dt><b>セルに対するタグ</b></dt>
+<dd>セルに対して指定するタグです。 #link などがそれにあたります。</dd>
+</dl>
+<p>現在の仕様では、上記の内「行に対するタグ」のみ、独自タグに対応しています。</p>
+</div>
+<div class="section"><h2>考え方</h2>
+<p>基本的には、1つのタグに対して2つのクラスを用意します。</p>
+<dl><dt><b>要素クラス</b></dt>
+<dd>タグ要素そのものを表すクラスです。出力時の動きなどを定義します。</dd>
+<dt><b>パーサクラス</b></dt>
+<dd>セルの値を読み込み、あるルールでそのタグにマッチするかを判定します。マッチした場合、その要素クラスを生成し、 呼び出し元へ処理を委譲します（処理の委譲については後述）。</dd>
+</dl>
+</div>
+<div class="section"><h2>行に対するタグの追加</h2>
+<p>例として、ここでは「#sample」とセルに書くと、その行の一番左のセルに「独自タグのテストです。」という文字列を表示するタグを作ってみます。タグを書いたセルの書式も反映させます。</p>
+<div class="section"><h3>要素クラスの作成</h3>
+<p>インタフェース「TemplateElement」を継承してクラスを実装します。「merge」メソッドを実装する必要があります。また、必要に応じてコンストラクタを定義します。</p>
+<div class="source"><pre>public class Sample implements TemplateElement{
+    private HSSFCell originalCell;
+
+    public Sample(HSSFCell cell){
+        originalCell = cell;
+    }
+
+    public void merge(FPContext context) throws FPMergeException {
+        HSSFCell currentCell = context.getCurrentCell();
+        currentCell.setCellStyle(originalCell.getCellStyle());
+        currentCell.setCellValue(new HSSFRichTextString(&quot;独自タグテストです&quot;));
+        context.nextRow();
+    }
+
+}</pre>
+</div>
+<p>コンストラクタで、「#sample」と書かれているセルそのものを受け取ります。 それを originalCell というメンバ変数に保持しておきます。</p>
+<p>merge メソッドは、TemplateElement インタフェースに定義されているメソッドです。 これが実際にデータ埋め込み時に呼ばれます。引数はデータ埋め込み時にグローバルで管理する各変数を保持している FPContext クラスです。 ここから埋め込みデータやら現在位置やらを取得します。</p>
+<p>ここでは、現在処理中のセルをHSSFCellとして取得します。 そこへ、originalCellからスタイルを取得して現在処理中のセルにコピーしています。 そしてそのセルに「独自タグテストです」という文字列をセットしています。</p>
+<p>これでA列に「独自タグテストです」が入ったので、FPContext#nextRow() を呼び出して、 FPContext に「処理を次の行に移してくれ」と命令します。</p>
+</div>
+<div class="section"><h3>パーサクラスの作成</h3>
+<p>次に、このタグを解析して上の Sample クラスを生成するパーサを作ります。RowParser インタフェースを実装します。</p>
+<div class="source"><pre>public class SampleParser implements RowParser{
+    public boolean process(CellWrapper cell, FPParser parser)  throws FPParseException {
+        String value =cell.getStringValue();
+        if(!&quot;#sample&quot;.equals(value)){
+            return false;
+        }
+        TemplateElement elem = new Sample(cell.getHSSFCell());
+        parser.addTemplateElement(elem);
+        return true;
+    }
+}</pre>
+</div>
+<p>RowParserインタフェースのprocessメソッドを実装します。 この最中に何かエラーが起きた場合は、FPParserExceptionを投げるようにします。</p>
+<p>パース時に見るセル（その行のA列）である CellWrapper と、大元のパーサである FPParser が引数で渡って来ます。 CellWrapperは、POI のクラスである HSSFCell を、Fisshplate が解析しやすいようにラップしたクラスです。</p>
+<p>セルの値を文字列として取得します。RowParserr#process が FPParser から呼ばれた時点でセルの値は必ず文字列である事が保証されています。</p>
+<p>その値が「#sample」じゃなかったらパース対象でないので false を戻します。 「#sample」ならば、Sample クラスを生成して、FPParser#addTemplateElement の引数にセットし、 要素として登録します。</p>
+</div>
+<div class="section"><h3>動かしてみる</h3>
+<p>データを埋め込む際に、このパーサクラスを、FPTemplate に追加します。</p>
+<div class="source"><pre>InputStream is = getClass().getResourceAsStream(&quot;/Template.xls&quot;);
+
+template = new FPTemplate();
+template.addRowParser(new SampleParser()); //SampleParserの登録
+
+Map map = new HashMap();
+//
+//ここで、mapに対して実際のデータをセットしたりする。
+//
+HSSFWorkbook wb = template.process(is, map);
+is.close();
+FileOutputStream fos = new FileOutputStream(&quot;out.xls&quot;);
+wb.write(fos);
+fos.close();</pre>
+</div>
+<p>上記コードでは、try catchなどは省略してます。これで、A列に「#sample」という値があった場合、その行のA列に「独自タグテストです」と入力されているはずです。</p>
+</div>
+<div class="section"><h3>ブロック要素の場合</h3>
+<p>例えば、「#sample」で始まり、「#end」で終了し、その間にある行を子要素として持つものをブロック要素とします。</p>
+<p>独自のブロック要素を作る場合は、他にもルールがあります。</p>
+<div class="section"><h4>ブロック終了タグ</h4>
+<p>ブロックの終了を表すタグは、「#end」固定になります。</p>
+</div>
+<div class="section"><h4>要素クラス</h4>
+<p>ブロック要素の場合、AbstractBlock を継承します。</p>
+<div class="source"><pre>public class Sample extends AbstractBlock{
+    private HSSFCell originalCell;
+
+    public Sample(HSSFCell cell){
+        originalCell = cell;
+    }
+
+    public void merge(FPContext context) throws FPMergeException {
+        HSSFCell currentCell = context.getCurrentCell();
+        currentCell.setCellStyle(originalCell.getCellStyle());
+        currentCell.setCellValue(new HSSFRichTextString(&quot;独自タグテストです&quot;));
+        context.nextRow();
+
+        mergeChildren(context);
+
+    }
+}</pre>
+</div>
+<p>ブロック要素は子要素を保持しているので、子要素のデータ埋め込みのためのメソッド、 「AbstractBlock#mergeChildren()」を呼び出しています。</p>
+<p>詳細は「org.seasar.fisshplate.core.element.WhileBlock」など、AbstractBlock を継承しているソースを参考にして下さい。</p>
+</div>
+<div class="section"><h4>パーサクラス</h4>
+<p>パーサクラスも、ブロック要素の場合はルールがあります。</p>
+<div class="source"><pre>public class SampleParser implements RowParser{
+    public boolean process(CellWrapper cell, FPParser parser)  throws FPParseException {
+        String value =cell.getStringValue();
+        if(!&quot;#sample&quot;.equals(value)){
+            return false;
+        }
+        AbstractBlock elem = new Sample(cell.getHSSFCell());
+        parser.addBlockElement(block);
+        return true;
+    }
+}</pre>
+</div>
+<p>ブロック要素の場合、new した要素クラスを、FPParser#addBlockElement() の引数にセットします。 すると、FPParser が、この行から最初に「#end」が見つかるまでの間の行を子要素として自動的に登録します。</p>
+<p>こちらも詳細は、「org.seasar.fisshplate.core.parser.WhileParser」などを参考にして下さい。</p>
+</div>
+</div>
+</div>
+
+</div><!-- article -->
+
+</div><!-- contents_center -->
+
+<div id="footer">
+<address>  &copy; Copyright
+  
+          2009,
+    
+          The Seasar Foundation and the others. All rights reserved.
+      </address>
+<div class="line"><span class="hide">spacer</span></div>
+</div><!-- footer -->
+
+</div><!-- wrapper -->
+
+</body>
+</html>
